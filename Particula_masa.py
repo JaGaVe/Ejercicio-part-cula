@@ -13,8 +13,7 @@ class ParticulaMasa(Particula):
         super().set_valores(pPos,pVel,pAcc)
 
     def init_random(self):
-        self.masa=random()*1e-10     #Suponemos una masa bastante pequeña al tratarse de una partícula
-        super().init_random()
+        self.masa=random()*1e5 
 
     def muestra(self):
         print('La masa es: ', self.masa)
@@ -31,8 +30,8 @@ class ParticulaMasa(Particula):
         self.acc+=G*self.masa*distInv*delta
 
     def actualiza_velypos(self,deltat):
-        self.vel+=self.acc+deltat
-        self.pos+=self.vel+deltat
+        self.vel+=self.acc*deltat
+        self.pos+=self.vel*deltat
     
 
 

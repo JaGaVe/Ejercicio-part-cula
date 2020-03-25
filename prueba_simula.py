@@ -1,6 +1,6 @@
 from Simulacion import *
 
-NumParticulas=int(input("Introduce número de partículas: "))
+NumParticulas=3
 TiempoTot=int(input("Introduce tiempo total: "))
 
 sim=Simulacion(NumParticulas,TiempoTot)

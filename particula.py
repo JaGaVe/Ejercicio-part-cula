@@ -19,7 +19,7 @@ class Particula:
 
     def init_random(self):
         self.pos=np.array([random(),random(),random()])
-        self.vel=np.array([random()*0.1,random()*0.1,random()*0.1])
+        self.vel=np.array([random(),random(),random()])
         self.acc=np.array([random(),random(),random()])
 
     def distancia (self, otra):

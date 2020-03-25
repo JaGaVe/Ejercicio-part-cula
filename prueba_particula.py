@@ -24,11 +24,12 @@ dt=0.1
 p1=ParticulaMasa()
 p2=ParticulaMasa()
 
+p1.set_valores(np.array([3.0,4.0,0.0]),np.zeros(3),np.zeros(3),2.8e-6)
+p1.muestra()
+
 p2.init_random()
 p2.muestra()
 
-p1.set_valores(np.array([3.0,4.0,0.0]),np.zeros(3),np.zeros(3),2.8e-6)
-p1.muestra()
 
 p1.acc_gravitatoria(p2)
 p2.acc_gravitatoria(p1)

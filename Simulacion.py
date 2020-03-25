@@ -10,32 +10,52 @@ class Simulacion():
         self.tTotal=t_total
         self.deltat=0.1
         self.particulas=[]
-        #Número de partículas, se inicializan con acc = 0
+        #Número de partículas
+        for i in range(self.numParticulas):
+            self.particulas.append(ParticulaMasa()) #Se crean los objetos y se introducen en la lista
+        
+        #Se inicializan con los datos dados (ver correo) para que no se salgan de los límites al graficar
+        self.particulas[0].set_valores(np.zeros(3), np.zeros(3), np.zeros(3), 1.0e10)
+        self.particulas[1].set_valores(np.array([1, 1, 0.]), np.array([0.,0.2,0.]), np.zeros(3), 1.5e9)
+        self.particulas[2].set_valores(np.array([1.2, 0.25, 0.]), np.array([0.,0.2,0.]), np.zeros(3), 1.0e9)
+        if self.numParticulas>3:
+            for i in range(3,self.numParticulas):
+                self.particulas.append(ParticulaMasa())
+                self.particulas[i].init_random()
+
+        """
+        #Si inicializásemos las particulas aleatoriamente, con un número elegido al ejecutar. Se utilizarán solo 3 partículas para que no se salgan del grid
         for i in range(self.numParticulas):
             self.particulas.append(ParticulaMasa())
             self.particulas[i].init_random()
             self.particulas[i].acc=np.zeros(3)
-            """
+        """
+
+        """
+        #Imprime las partículas, apra comprobar que se han añadido bien
+        for i in range(self.numParticulas):
             print(self.particulas[i].pos)
             print(self.particulas[i].vel)
             print(self.particulas[i].acc)
             print(self.particulas[i].masa)
             print("\n")
-            """
-            self.prepara_grafico()
-            self.refresca_particulas()
-    def avanza (self):
         """
+        self.prepara_grafico()
+        self.refresca_particulas()
+        
+    def avanza (self):
         #Inicializar las aceleraciones a cero
         for i in range(self.numParticulas):
             self.particulas[i].acc=np.zeros(3)
-        """
-        #Calcular aceleración producida por cada partícula y actualizar posición y velocidad.
+    
+        #Calcular aceleración producida por cada partícula y actualizar posición y velocidad. LA PARTICULA [0] NO SE ACTUALIZA
         for p1 in range(self.numParticulas):
             for p2 in range (self.numParticulas):
                 self.particulas[p1].acc_gravitatoria(self.particulas[p2])
             self.particulas[p1].actualiza_velypos(self.deltat)
-
+        self.particulas[0].set_valores(np.zeros(3), np.zeros(3), np.zeros(3), 1.0e10) #Vuelve a dejar a la partícula[0] como estaba
+        self.refresca_particulas()  
+      
     def simula (self):
         for i in np.arange(0.0,self.tTotal,self.deltat):
             self.avanza()
@@ -47,6 +67,7 @@ class Simulacion():
                 print(self.particulas[i].vel)
                 print(self.particulas[i].acc)
                 print(self.particulas[i].masa, "\n")
+
     #Prepar gráfico
     def prepara_grafico(self):
         plt.ion()
@@ -64,12 +85,22 @@ class Simulacion():
     def refresca_particulas(self):
         self.grafico.remove()   #Limpia el gráfico
         col=['g']
-        for _ in range(self.numParticulas):
+        for _ in range(self.numParticulas-1):
             col.append('r')
-        x,y,z=self.vectoriza()  #Me falta este método ???
+        x,y,z=self.vectoriza() 
         self.grafico=self.ax.scatter(x,y,z,c=col,marker='o')
         plt.draw()
         plt.pause(0.1)
+
+    def vectoriza(self):
+        x,y,z=[],[],[]
+        for i in range(self.numParticulas):
+            x.append(self.particulas[i].pos[0])
+            y.append(self.particulas[i].pos[1])
+            z.append(self.particulas[i].pos[2])
+
+        return x,y,z
+
 
 
     
