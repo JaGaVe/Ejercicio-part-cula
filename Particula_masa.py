@@ -13,7 +13,7 @@ class ParticulaMasa(Particula):
         super().set_valores(pPos,pVel,pAcc)
 
     def init_random(self):
-        self.masa=random()*1e5 
+        self.masa=random()*1e6
 
     def muestra(self):
         print('La masa es: ', self.masa)
@@ -23,10 +23,10 @@ class ParticulaMasa(Particula):
         G=constants.gravitational_constant
         delta=otra.pos-self.pos
         dist=self.distancia(otra)
-        softening=1e-7          #Evita que el programa de error al hacer la inversa de distancia
+        softening=1e-2          #Evita que el programa de error al hacer la inversa de distancia
         if dist<softening:
             dist=softening
-        distInv=1/dist
+        distInv=(1/dist)**3
         self.acc+=G*self.masa*distInv*delta
 
     def actualiza_velypos(self,deltat):
