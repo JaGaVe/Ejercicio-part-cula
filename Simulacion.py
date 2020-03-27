@@ -16,8 +16,8 @@ class Simulacion():
         
         #Se inicializan con los datos dados (ver correo) para que no se salgan de los límites al graficar
         self.particulas[0].set_valores(np.zeros(3), np.zeros(3), np.zeros(3), 1.0e10)
-        self.particulas[1].set_valores(np.array([1, 0., 0.]), np.array([0.,0.3,0.]), np.zeros(3), 5.0e8)
-        self.particulas[2].set_valores(np.array([-0.9, 0., 0.]), np.array([0.,-0.3,0.]), np.zeros(3), 5.0e8)
+        self.particulas[1].set_valores(np.array([1, 0., 0.]), np.array([0.,0.3,0.]), np.zeros(3), 7.0e8)
+        self.particulas[2].set_valores(np.array([-0.9, 0., 0.]), np.array([0.,-0.3,0.]), np.zeros(3), 7.0e8)
         if self.numParticulas>3:
             for i in range(3,self.numParticulas):
                 self.particulas.append(ParticulaMasa())
